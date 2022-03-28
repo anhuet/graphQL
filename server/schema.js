@@ -1,6 +1,6 @@
 const { gql } = require('apollo-server-express')
 
-const  typeDefs = gql`
+const typeDefs = gql`
   type Book {
     id: ID
     name: String
@@ -21,9 +21,10 @@ const  typeDefs = gql`
     author(id: ID!): Author
   }
   type Mutation {
-    createAuthor(id: ID!, name: String, age: Int): Author {
-
-    }
+    createAuthor(id: ID!, name: String, age: Int): Author 
+  }
+  type Mutation {
+    createBook(id: ID!, name: String, genre:String, authorId: ID!): Book
   }
   `
 module.exports = typeDefs
