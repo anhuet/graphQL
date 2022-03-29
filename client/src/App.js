@@ -1,20 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
-import {
-  ApolloClient,InMemoryCache, ApolloProvider,useQuery,gql
+import React from "react";
 
-} from "@apollo/client";
-const client = new ApolloClient({
-  uri: 'localhost:4000',
-  cache: new InMemoryCache()
-
-});
+import { Container } from "react-bootstrap";
+import FormCreate from "./components/Form";
+import BookList from "./components/BookList";
 
 function App() {
   return (
-    <ApolloProvider client={client}>
-      test
-    </ApolloProvider>
+    <Container>
+      <h1 className="text-center mt-3"> My Books</h1>
+      <FormCreate />
+      <BookList className="mt-5" />
+    </Container>
   );
 }
 

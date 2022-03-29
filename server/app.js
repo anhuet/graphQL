@@ -1,39 +1,37 @@
-const express = require('express')
-const cors = require('cors')
-const { ApolloServer } = require('apollo-server-express')
-const mogoose = require('mongoose')
+const express = require("express");
+require("dotenv").config();
+const cors = require("cors");
+const { ApolloServer } = require("apollo-server-express");
+const mogoose = require("mongoose");
 
-const typeDefs = require('./schema')
-const resolvers = require('./resolver/resolver')
-const { default: mongoose } = require('mongoose')
-const mongoDataMethods = require('./data/db')
+const typeDefs = require("./schema");
+const resolvers = require("./resolver/resolver");
+const { default: mongoose } = require("mongoose");
+const mongoDataMethods = require("./data/db");
 
 // Connect to MongoDb
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.MONGODB_URL, {
-    })
-    console.log('MongoDb connected')
-
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("MongoDb connected");
   } catch (error) {
-    console.log('error: ', error.message)
+    console.log("error: ", error.message);
   }
-}
-connectDB()
+};
+connectDB();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: () => ({ mongoDataMethods })
-})
+  context: () => ({ mongoDataMethods }),
+});
 
-const app = express()
+const app = express();
 // server.applyMiddleware({app})
 
-
-
-server.start().then(res => {
-  server.applyMiddleware({ app, path: '/' });
-  app.listen({ port: 4000 }, () =>
-    console.log(server.graphqlPath)
-  );
+server.start().then((res) => {
+  server.applyMiddleware({ app, path: "/" });
+  app.listen({ port: 4000 }, () => console.log(server.graphqlPath));
 });

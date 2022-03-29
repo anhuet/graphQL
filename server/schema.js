@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server-express')
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type Book {
@@ -16,15 +16,15 @@ const typeDefs = gql`
   # ROOT TYPE
   type Query {
     books: [Book]
-    book (id: ID!): Book
+    book(id: ID!): Book
     authors: [Author]
     author(id: ID!): Author
   }
   type Mutation {
-    createAuthor(id: ID!, name: String, age: Int): Author 
+    createAuthor(name: String, age: Int): Author
   }
   type Mutation {
-    createBook(id: ID!, name: String, genre:String, authorId: ID!): Book
+    createBook(name: String, genre: String, authorId: ID!): Book
   }
-  `
-module.exports = typeDefs
+`;
+module.exports = typeDefs;
